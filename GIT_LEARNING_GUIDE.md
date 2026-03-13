@@ -619,3 +619,5 @@ Happy learning! Practice these commands regularly to become proficient with Git.
 Adding more to the git practice
 
 Change from branch
+Rebase change
+
