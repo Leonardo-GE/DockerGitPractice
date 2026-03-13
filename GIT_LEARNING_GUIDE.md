@@ -616,3 +616,4 @@ git checkout <commit-hash>
 ---
 
 Happy learning! Practice these commands regularly to become proficient with Git.
+Adding more to the git practice
