@@ -72,7 +72,7 @@ git show <commit-hash>
 ```
 **Explanation**: Displays the changes made in a specific commit. Replace `<commit-hash>` with the actual hash from `git log`.
 
-#### 2.6 Change/Amend a commit
+#### 2.6 Amend a commit
 ```bash
 # Modify the last commit message
 git commit --amend -m "New commit message"
@@ -80,10 +80,65 @@ git commit --amend -m "New commit message"
 # Add forgotten files to the last commit
 git add forgotten-file.txt
 git commit --amend --no-edit
-```
-**Explanation**: Allows you to modify the most recent commit without creating a new one.
 
-#### 2.7 Undo a commit
+# Amend without changing the message
+git commit --amend --no-edit
+
+# Amend author information
+git commit --amend --author="New Author <email@example.com>"
+```
+**Explanation**: Allows you to modify the most recent commit without creating a new one. This rewrites the commit hash, so only use on unpushed commits. The `--no-edit` flag keeps the original message.
+
+#### 2.7 Restore files
+```bash
+# Restore a file to its last committed state
+git restore index.html
+
+# Restore all files
+git restore .
+
+# Restore a file from a specific commit
+git restore --source=<commit-hash> index.html
+
+# Restore a staged file (unstage it)
+git restore --staged index.html
+
+# Restore and unstage
+git restore --staged --worktree index.html
+```
+**Explanation**: Discards changes in working directory or staging area. `--staged` affects the staging area, `--worktree` (or no flag) affects working files. This is the modern alternative to `git checkout -- file`.
+
+#### 2.8 Reset commits
+```bash
+# Undo last commit but keep changes staged
+git reset --soft HEAD~1
+
+# Undo last commit and keep changes unstaged
+git reset --mixed HEAD~1
+
+# Undo last commit and discard changes (DANGEROUS!)
+git reset --hard HEAD~1
+
+# Reset to a specific commit
+git reset --soft <commit-hash>
+git reset --mixed <commit-hash>
+git reset --hard <commit-hash>
+
+# Unstage a file (without losing changes)
+git reset HEAD index.html
+
+# Reset specific file to a commit
+git reset <commit-hash> -- index.html
+```
+**Explanation**: 
+- `--soft`: Keeps changes staged (ready to commit again)
+- `--mixed` (default): Keeps changes but unstaged (in working directory)
+- `--hard`: Discards changes completely (DANGEROUS!)
+- `HEAD~1` means "one commit back", `HEAD~3` means "three commits back"
+- Use `git reflog` to recover if you accidentally reset with `--hard`
+
+#### 2.9 Undo a commit
+=======
 ```bash
 # Undo last commit but keep changes staged
 git reset --soft HEAD~1
